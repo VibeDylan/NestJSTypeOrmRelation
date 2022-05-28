@@ -1,5 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, OneToMany, ManyToOne } from 'typeorm'
+import { 
+    Column, 
+    Entity, 
+    PrimaryGeneratedColumn, 
+    OneToOne, 
+    OneToMany, 
+    ManyToOne, 
+    ManyToMany, 
+    JoinTable } from 'typeorm'
 import { ContactInfo } from './contact-info.entity';
+import { Meeting } from './meeting.entity';
 import { Task } from './task.entity';
 
 @Entity()
@@ -22,4 +31,8 @@ export class Employee {
 
     @OneToMany(() => Task, task => task.employee)
     tasks: Task[];
+
+    @ManyToMany(() => Meeting, meeting => meeting.attendees)
+    @JoinTable()
+    meetings: Meeting[];
 }
